@@ -1,0 +1,166 @@
+/* Palette taken from the 3D render: navy frame, orange top, light-blue body */
+:root {
+  --navy: #1f3a7a;
+  --orange: #e8a020;
+  --light-blue: #e6f0f8;
+  --text: #1c2430;
+  --muted: #5a6675;
+  --border: #d5dde6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: #fff;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.hero {
+  background: var(--light-blue);
+  border-bottom: 4px solid var(--orange);
+}
+
+.hero__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: 2.2rem;
+  line-height: 1.2;
+  color: var(--navy);
+}
+
+.hero__lead {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+.hero__image {
+  width: 200px;
+  height: auto;
+  flex-shrink: 0;
+  /* The render has a white background; blend it into the header colour */
+  mix-blend-mode: multiply;
+}
+
+/* Sections */
+section {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+section:last-child {
+  border-bottom: none;
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.4rem;
+  color: var(--navy);
+}
+
+p {
+  margin: 0 0 12px;
+}
+
+/* Work status list */
+.status,
+.team {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.status li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.status li:last-child {
+  border-bottom: none;
+}
+
+.badge {
+  flex-shrink: 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.badge--done {
+  background: #dff3e3;
+  color: #1d6b32;
+}
+
+.badge--progress {
+  background: #fdf0d5;
+  color: #8a5a00;
+}
+
+.badge--planned {
+  background: #eceff3;
+  color: var(--muted);
+}
+
+/* Team */
+.team {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 4px 16px;
+  margin-bottom: 16px;
+}
+
+.supervisor {
+  margin: 0;
+}
+
+/* Footer */
+.footer {
+  padding: 20px 0;
+  background: var(--navy);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.footer a {
+  color: #fff;
+}
+
+@media (max-width: 560px) {
+  .hero__inner {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero__image {
+    width: 160px;
+  }
+}
