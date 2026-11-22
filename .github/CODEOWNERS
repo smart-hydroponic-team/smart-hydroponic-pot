@@ -2,8 +2,7 @@
 *               @Bartek-Nowak
 
 # Subsystem owners
-/esp/           @nick
-/server/        @nick
-/mobile/        @nick
-/web/           @nick
-/docs/          @nick
+/esp/           @Bartek-Nowak
+/server/        @ladamczewski
+/mobile/        @OHaast
+/web/           @OHaast
