@@ -2,16 +2,11 @@
 
 namespace ProvisioningValidator
 {
-    bool validate(
-        const char* ssid,
-        const char* wifiPassword,
-        const char* username,
-        const char* apiPassword
-    )
+    bool validate(const Config::ProvisioningConfig& config)
     {
-        return ssid && *ssid &&
-               wifiPassword && *wifiPassword &&
-               username && *username &&
-               apiPassword && *apiPassword;
+        return config.wifiSsid.length() > 0 &&
+               config.wifiPassword.length() > 0 &&
+               config.apiUsername.length() > 0 &&
+               config.apiPassword.length() > 0;
     }
 }

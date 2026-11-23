@@ -1,6 +1,7 @@
 
 #include "web/ProvisioningServer.h"
 #include "web/ProvisioningValidator.h"
+#include "config/ProvisioningConfig.h"
 
 #include <ArduinoJson.h>
 
@@ -34,13 +35,14 @@ namespace ProvisioningServer
                 return;
             }
 
-            const char* ssid = document["wifi"]["ssid"];
-            const char* wifiPassword = document["wifi"]["password"];
-            const char* username = document["api"]["username"];
-            const char* apiPassword = document["api"]["password"];
+            Config::ProvisioningConfig config;
 
-            if (!ProvisioningValidator::validate(
-                    ssid, wifiPassword, username, apiPassword)) {
+            config.wifiSsid = document["wifi"]["ssid"].as<String>();
+            config.wifiPassword = document["wifi"]["password"].as<String>();
+            config.apiUsername = document["api"]["username"].as<String>();
+            config.apiPassword = document["api"]["password"].as<String>();
+
+            if (!ProvisioningValidator::validate(config)) {
                 server.send(400, "application/json", "{\"error\":\"Missing or empty fields\"}");
                 return;
             }
