@@ -2,7 +2,7 @@
 #include "web/ProvisioningServer.h"
 #include "web/ProvisioningValidator.h"
 #include "config/ProvisioningConfig.h"
-
+#include "config/ProvisioningManager.h"
 #include <ArduinoJson.h>
 
 #ifdef ESP8266
@@ -47,8 +47,12 @@ namespace ProvisioningServer
                 return;
             }
 
-            server.send(200, "application/json", "{\"status\":\"received\"}");
-        });
+            if (!ProvisioningManager::saveConfig(config)) {
+                server.send(500, "application/json", "{\"error\":\"Failed to save configuration\"}");
+                return;
+            }
+
+            server.send(200, "application/json", "{\"status\":\"received\"}"); });
 
         server.begin();
     }
