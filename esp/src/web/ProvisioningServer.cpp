@@ -1,4 +1,5 @@
 #include "web/ProvisioningServer.h"
+#include <ArduinoJson.h>
 
 #ifdef ESP8266
 #include <ESP8266WebServer.h>
@@ -18,6 +19,32 @@ namespace ProvisioningServer
     {
         server.on("/api/health", HTTP_GET, []()
                   { server.send(200, "application/json", "{\"status\":\"ok\"}"); });
+
+        server.on("/api/provision", HTTP_POST, []()
+                  {
+    JsonDocument document;
+
+    DeserializationError error = deserializeJson(document, server.arg("plain"));
+
+    if (error) {
+        server.send(400, "application/json", "{\"error\":\"Invalid JSON\"}");
+        return;
+    }
+
+    const char* ssid = document["wifi"]["ssid"];
+    const char* wifiPassword = document["wifi"]["password"];
+    const char* username = document["api"]["username"];
+    const char* apiPassword = document["api"]["password"];
+
+    if (!ssid || !*ssid ||
+        !wifiPassword || !*wifiPassword ||
+        !username || !*username ||
+        !apiPassword || !*apiPassword) {
+        server.send(400, "application/json", "{\"error\":\"Missing or empty fields\"}");
+        return;
+    }
+
+    server.send(200, "application/json", "{\"status\":\"received\"}"); });
 
         server.begin();
     }
