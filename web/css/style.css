@@ -66,7 +66,8 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3 {
   font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.1;
@@ -177,6 +178,65 @@ p {
   margin: 0 0 var(--space-3);
 }
 
+/* About: three tiles showing the data flow ESP -> API -> mobile app */
+.about__intro {
+  font-size: var(--text-lg);
+}
+
+.flow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flow__item {
+  position: relative;
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  background: var(--color-sky);
+}
+
+/* Chevron centred in the gap between tiles, pointing to the next one */
+.flow__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(100% + var(--space-5) / 2);
+  width: 10px;
+  height: 10px;
+  border-top: 3px solid var(--color-orange);
+  border-right: 3px solid var(--color-orange);
+  transform: translate(-70%, -50%) rotate(45deg);
+}
+
+.flow__icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--space-3);
+  padding: 10px;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  fill: none;
+  stroke: var(--color-navy);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.flow h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.flow p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
 /* Work status list */
 .status,
 .team {
@@ -260,5 +320,16 @@ p {
   .hero__visual {
     align-self: center;
     width: min(70%, 260px);
+  }
+
+  .flow {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tiles are stacked, so the chevron moves below the tile and points down */
+  .flow__item:not(:last-child)::after {
+    top: calc(100% + var(--space-5) / 2);
+    left: 50%;
+    transform: translate(-50%, -70%) rotate(135deg);
   }
 }
