@@ -1,6 +1,6 @@
 ## Local configuration
 
-The project requires a local `secrets.ini` file containing credentials used by the ESP32 provisioning access point.
+The project requires a local `secrets.ini` file containing credentials used by the Wi-Fi provisioning access point.
 
 ### Setup
 
@@ -10,5 +10,7 @@ The project requires a local `secrets.ini` file containing credentials used by t
 
 | Variable | Description |
 |---|---|
-| `AP_SSID` | Name of the Wi-Fi network broadcast by ESP32 during provisioning |
-| `AP_PASSWORD` | Password required to connect to the provisioning network |
+| `AP_SSID` | Name of the Wi-Fi network broadcast by the device during provisioning |
+| `AP_PASSWORD` | Password required to connect to the provisioning network. Must contain at least **8 characters** (WPA2 requirement). |
+
+**Important:** The access point password must be at least 8 characters long. Shorter passwords will prevent the access point from starting.
