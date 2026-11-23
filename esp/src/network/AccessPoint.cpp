@@ -3,17 +3,25 @@
 #include <WiFi.h>
 #include "config/Secrets.h"
 
-namespace AccessPoint {
+namespace AccessPoint
+{
 
-    bool start() {
+    bool start()
+    {
         WiFi.mode(WIFI_AP);
 
         return WiFi.softAP(AP_SSID, AP_PASSWORD);
     }
 
-    void stop() {
+    void stop()
+    {
         WiFi.softAPdisconnect(true);
         WiFi.mode(WIFI_OFF);
+    }
+
+    String getIpAddress()
+    {
+        return WiFi.softAPIP().toString();
     }
 
 }
