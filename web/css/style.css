@@ -237,25 +237,84 @@ p {
   color: var(--color-muted);
 }
 
-/* Work status list */
-.status,
-.team {
-  margin: 0;
+/* Work status: vertical timeline, marker colour reflects the stage status */
+.timeline {
+  margin: var(--space-4) 0 0;
   padding: 0;
   list-style: none;
 }
 
-.status li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-2) 0;
-  border-bottom: 1px dashed var(--color-border);
+.timeline__item {
+  --marker: var(--color-border);
+  position: relative;
+  padding: 0 0 var(--space-4) var(--space-5);
 }
 
-.status li:last-child {
-  border-bottom: none;
+.timeline__item:last-child {
+  padding-bottom: 0;
+}
+
+/* Marker dot */
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 0;
+  /* The global "*" rule does not reach pseudo-elements; without border-box the
+     border widens the dot to 26px and pushes it off the connecting line */
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  border: 4px solid var(--marker);
+  border-radius: 50%;
+  background: var(--color-surface);
+}
+
+/* Line connecting the marker with the next one */
+.timeline__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 26px;
+  bottom: 0;
+  left: 8px;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.timeline__item--done {
+  --marker: var(--color-navy);
+}
+
+.timeline__item--done::before {
+  background: var(--color-navy);
+}
+
+.timeline__item--progress {
+  --marker: var(--color-orange);
+}
+
+.timeline__item--planned {
+  --marker: #b8c2cd;
+}
+
+.timeline__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+}
+
+.timeline h3 {
+  margin: 0;
+  font-size: var(--text-lg);
+  /* Fixed first-line height keeps the marker (top 4px + 18px) centred on the
+     title, also when the badge wraps below it on narrow screens */
+  line-height: 26px;
+}
+
+.timeline p {
+  margin: var(--space-1) 0 0;
+  color: var(--color-muted);
 }
 
 .badge {
@@ -283,6 +342,9 @@ p {
 
 /* Team */
 .team {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: var(--space-1) var(--space-3);

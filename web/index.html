@@ -61,13 +61,44 @@
 
     <section>
       <h2>Stan prac</h2>
-      <ul class="status">
-        <li><span>Model 3D konstrukcji</span><span class="badge badge--progress">w trakcie</span></li>
-        <li><span>Strona WWW</span><span class="badge badge--progress">w trakcie</span></li>
-        <li><span>Oprogramowanie sterownika (ESP)</span><span class="badge badge--planned">planowane</span></li>
-        <li><span>Serwer i API</span><span class="badge badge--planned">planowane</span></li>
-        <li><span>Aplikacja mobilna</span><span class="badge badge--planned">planowane</span></li>
-      </ul>
+      <!-- Item modifiers: timeline__item--done / --progress / --planned (keep the badge in sync) -->
+      <ol class="timeline">
+        <li class="timeline__item timeline__item--progress">
+          <div class="timeline__head">
+            <h3>Model 3D konstrukcji</h3>
+            <span class="badge badge--progress">w trakcie</span>
+          </div>
+          <p>Projekt wieży z kieszeniami na rośliny, zbiornikiem i ramą.</p>
+        </li>
+        <li class="timeline__item timeline__item--progress">
+          <div class="timeline__head">
+            <h3>Oprogramowanie sterownika ESP</h3>
+            <span class="badge badge--progress">w trakcie</span>
+          </div>
+          <p>Tożsamość urządzenia oraz konfiguracja i połączenie Wi-Fi.</p>
+        </li>
+        <li class="timeline__item timeline__item--progress">
+          <div class="timeline__head">
+            <h3>Strona WWW</h3>
+            <span class="badge badge--progress">w trakcie</span>
+          </div>
+          <p>Wizytówka projektu, którą właśnie oglądasz.</p>
+        </li>
+        <li class="timeline__item timeline__item--planned">
+          <div class="timeline__head">
+            <h3>Serwer i API</h3>
+            <span class="badge badge--planned">planowane</span>
+          </div>
+          <p>Przyjmowanie i przechowywanie danych z doniczki.</p>
+        </li>
+        <li class="timeline__item timeline__item--planned">
+          <div class="timeline__head">
+            <h3>Aplikacja mobilna</h3>
+            <span class="badge badge--planned">planowane</span>
+          </div>
+          <p>Podgląd stanu uprawy i sterowanie doniczką.</p>
+        </li>
+      </ol>
     </section>
 
     <section>
