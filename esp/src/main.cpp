@@ -4,6 +4,7 @@
 #include "network/AccessPoint.h"
 #include "web/ProvisioningServer.h"
 #include "config/ProvisioningManager.h"
+#include "identity/DeviceIdentity.h"
 
 void setup()
 {
@@ -25,6 +26,14 @@ void setup()
     }
 
     Serial.println("LittleFS initialized");
+
+    if (!DeviceIdentity::begin())
+    {
+        Serial.println("Failed to initialize device identity");
+        return;
+    }
+
+    Serial.println("Device identity initialized");
 
     Config::ProvisioningConfig config;
 
