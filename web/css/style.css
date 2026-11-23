@@ -25,6 +25,7 @@
   --color-orange: #e8a020;
   --color-sky: #e6f0f8;
   --color-sky-deep: #cfe1f0;
+  --color-tint: #f3f8fc;
   --color-surface: #fff;
   --color-text: #1c2430;
   --color-muted: #55616f;
@@ -84,7 +85,7 @@ h3 {
 /* Hero */
 .hero {
   overflow: hidden;
-  background: linear-gradient(160deg, #f3f8fc 0%, var(--color-sky) 55%, var(--color-sky-deep) 100%);
+  background: linear-gradient(160deg, var(--color-tint) 0%, var(--color-sky) 55%, var(--color-sky-deep) 100%);
 }
 
 .hero__inner {
@@ -160,12 +161,16 @@ h3 {
 
 /* Sections */
 section {
-  padding: var(--space-5) 0;
-  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-6) 0;
 }
 
-section:last-child {
-  border-bottom: none;
+/* Every second section is a tinted band. Sections sit inside the centred
+   container, so the band is stretched to the viewport edges with a huge
+   box-shadow, which clip-path then trims back to the section's own height. */
+section:nth-child(even) {
+  background: var(--color-tint);
+  box-shadow: 0 0 0 100vmax var(--color-tint);
+  clip-path: inset(0 -100vmax);
 }
 
 h2 {
@@ -433,6 +438,13 @@ p {
   color: var(--color-orange);
 }
 
+/* Clearly visible keyboard focus */
+a:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 @media (max-width: 640px) {
   .hero__inner {
     flex-direction: column;
@@ -443,6 +455,10 @@ p {
 
   .hero__lead {
     max-width: none;
+  }
+
+  section {
+    padding: var(--space-5) 0;
   }
 
   .hero__visual {
