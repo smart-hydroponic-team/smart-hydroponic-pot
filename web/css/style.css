@@ -1,11 +1,55 @@
-/* Palette taken from the 3D render: navy frame, orange top, light-blue body */
+/* Space Grotesk (SIL OFL 1.1, see fonts/OFL.txt) – self-hosted, used for headings.
+   The latin-ext subset carries the Polish diacritics. */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("../fonts/space-grotesk-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("../fonts/space-grotesk-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Palette taken from the 3D render: navy frame, orange top, light-blue body */
 :root {
-  --navy: #1f3a7a;
-  --orange: #e8a020;
-  --light-blue: #e6f0f8;
-  --text: #1c2430;
-  --muted: #5a6675;
-  --border: #d5dde6;
+  --color-navy: #1f3a7a;
+  --color-navy-dark: #14265a;
+  --color-orange: #e8a020;
+  --color-sky: #e6f0f8;
+  --color-sky-deep: #cfe1f0;
+  --color-surface: #fff;
+  --color-text: #1c2430;
+  --color-muted: #55616f;
+  --color-border: #d5dde6;
+
+  --font-heading: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: clamp(1.1rem, 0.6vw + 1rem, 1.3rem);
+  --text-xl: clamp(1.5rem, 1.2vw + 1.2rem, 2rem);
+  --text-hero: clamp(2.5rem, 5.5vw + 1rem, 4.25rem);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+  --space-7: 96px;
+
+  --radius: 12px;
+  --radius-pill: 999px;
+  --container: 960px;
 }
 
 * {
@@ -14,58 +58,109 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
   line-height: 1.6;
-  color: var(--text);
-  background: #fff;
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+h1,
+h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-navy-dark);
 }
 
 .container {
-  max-width: 800px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--space-4);
 }
 
-/* Header */
+/* Hero */
 .hero {
-  background: var(--light-blue);
-  border-bottom: 4px solid var(--orange);
+  overflow: hidden;
+  background: linear-gradient(160deg, #f3f8fc 0%, var(--color-sky) 55%, var(--color-sky-deep) 100%);
 }
 
 .hero__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding-top: 32px;
-  padding-bottom: 32px;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+}
+
+/* Short orange bar echoing the orange top of the pot */
+.hero__eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--color-orange);
 }
 
 .hero h1 {
-  margin: 0 0 8px;
-  font-size: 2.2rem;
-  line-height: 1.2;
-  color: var(--navy);
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-hero);
 }
 
 .hero__lead {
+  max-width: 32ch;
   margin: 0;
-  font-size: 1.1rem;
-  color: var(--muted);
+  font-size: var(--text-lg);
+  color: var(--color-muted);
+}
+
+.hero__visual {
+  position: relative;
+  flex-shrink: 0;
+  width: min(42%, 340px);
+}
+
+/* Soft disc behind the render so the model stands out from the background */
+.hero__visual::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 125%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #fff 45%, rgba(255, 255, 255, 0) 70%);
+  transform: translate(-50%, -50%);
 }
 
 .hero__image {
-  width: 200px;
+  position: relative;
+  display: block;
+  width: 100%;
   height: auto;
-  flex-shrink: 0;
-  /* The render has a white background; blend it into the header colour */
+  /* The render has an opaque white background; multiply blends it into the hero */
   mix-blend-mode: multiply;
 }
 
 /* Sections */
 section {
-  padding: 28px 0;
-  border-bottom: 1px solid var(--border);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 section:last-child {
@@ -73,13 +168,13 @@ section:last-child {
 }
 
 h2 {
-  margin: 0 0 12px;
-  font-size: 1.4rem;
-  color: var(--navy);
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-xl);
 }
 
 p {
-  margin: 0 0 12px;
+  max-width: 65ch;
+  margin: 0 0 var(--space-3);
 }
 
 /* Work status list */
@@ -94,9 +189,9 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 8px 0;
-  border-bottom: 1px dashed var(--border);
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px dashed var(--color-border);
 }
 
 .status li:last-child {
@@ -106,8 +201,8 @@ p {
 .badge {
   flex-shrink: 0;
   padding: 2px 10px;
-  border-radius: 999px;
-  font-size: 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
   white-space: nowrap;
 }
 
@@ -123,15 +218,15 @@ p {
 
 .badge--planned {
   background: #eceff3;
-  color: var(--muted);
+  color: var(--color-muted);
 }
 
 /* Team */
 .team {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 4px 16px;
-  margin-bottom: 16px;
+  gap: var(--space-1) var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .supervisor {
@@ -140,9 +235,9 @@ p {
 
 /* Footer */
 .footer {
-  padding: 20px 0;
-  background: var(--navy);
-  font-size: 0.9rem;
+  padding: var(--space-4) 0;
+  background: var(--color-navy-dark);
+  font-size: var(--text-sm);
   text-align: center;
 }
 
@@ -150,17 +245,20 @@ p {
   color: #fff;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   .hero__inner {
-    flex-direction: column-reverse;
-    text-align: center;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
   }
 
-  .hero h1 {
-    font-size: 1.8rem;
+  .hero__lead {
+    max-width: none;
   }
 
-  .hero__image {
-    width: 160px;
+  .hero__visual {
+    align-self: center;
+    width: min(70%, 260px);
   }
 }
