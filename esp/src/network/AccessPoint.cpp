@@ -1,6 +1,11 @@
 #include "network/AccessPoint.h"
 
+#ifdef ESP8266
+#include <ESP8266WiFi.h>
+#else
 #include <WiFi.h>
+#endif
+
 #include "config/Secrets.h"
 
 namespace AccessPoint
