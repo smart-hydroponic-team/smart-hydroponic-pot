@@ -1,9 +1,14 @@
-
 #include <Arduino.h>
 
 #include "network/AccessPoint.h"
+#include "network/WiFiConnection.h"
 #include "web/ProvisioningServer.h"
 #include "config/ProvisioningManager.h"
+
+namespace
+{
+    bool connectionResultReported = false;
+}
 
 void setup()
 {
@@ -31,6 +36,12 @@ void setup()
     if (ProvisioningManager::loadConfig(config))
     {
         Serial.println("Provisioning configuration loaded");
+
+        WiFiConnection::connect(
+            config.wifiSsid,
+            config.wifiPassword);
+
+        Serial.println("Wi-Fi connection started");
     }
     else
     {
@@ -44,4 +55,18 @@ void setup()
 void loop()
 {
     ProvisioningServer::handleClient();
+
+    if (WiFiConnection::isConnected() && !connectionResultReported)
+    {
+        Serial.println("Wi-Fi connected");
+        connectionResultReported = true;
+    }
+
+    if (!WiFiConnection::isConnecting() &&
+        !WiFiConnection::isConnected() &&
+        !connectionResultReported)
+    {
+        Serial.println("Wi-Fi connection failed");
+        connectionResultReported = true;
+    }
 }
