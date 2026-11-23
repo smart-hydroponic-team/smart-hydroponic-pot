@@ -15,6 +15,17 @@ namespace AccessPoint
     {
         WiFi.mode(WIFI_AP);
 
+        IPAddress apIp;
+        apIp.fromString(AP_IP);
+
+        if (!WiFi.softAPConfig(
+                apIp,
+                apIp,
+                IPAddress(255, 255, 255, 0)))
+        {
+            return false;
+        }
+
         return WiFi.softAP(AP_SSID, AP_PASSWORD);
     }
 
